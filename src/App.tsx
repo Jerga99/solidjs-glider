@@ -5,6 +5,24 @@ import { FaRegularImage, FaRegularHeart } from "solid-icons/fa";
 
 import MainSidebar from "./components/sidebars/Main";
 import TrendsSidebar from "./components/sidebars/Trends";
+import MainLayout from "./components/layouts/Main";
+
+const HelloComponent = () => {
+  return (
+    <div>
+      HI I am HelloComponent
+    </div>
+  )
+}
+
+const GoodbyeComponent = () => {
+  return (
+    <div>
+     Goodbye
+    </div>
+  )
+}
+
 
 const App: Component = () => {
   return (
@@ -67,6 +85,12 @@ const App: Component = () => {
                   </div>
                   <div class="h-px bg-gray-700 my-1" />
                   {/* GLIDE POST START */}
+
+                  <MainLayout>
+                    <GoodbyeComponent />
+                    <HelloComponent />
+                  </MainLayout>
+
                   <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
                     <div class="flex-it flex-row">
                       <div class="flex-it mr-4">
