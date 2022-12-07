@@ -2,10 +2,8 @@ import { Component, createSignal, createUniqueId, For } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "./components/layouts/Main";
 import GlidePost from "./components/glides/GlidePost";
+import { Glide } from "./types/Glide";
 
-type Glide = {
-  content: string;
-}
 
 const App: Component = () => {
   const [content, setContent] = createSignal("");
@@ -26,8 +24,6 @@ const App: Component = () => {
 
     setGlides([glide, ...glides()]);
     setContent("");
-
-    console.log(JSON.stringify(glides()));
   }
 
   return (

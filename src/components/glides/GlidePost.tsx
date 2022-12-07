@@ -2,9 +2,13 @@ import { AiOutlineMessage } from "solid-icons/ai";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
 import { Component } from "solid-js";
+import { Glide } from "../../types/Glide";
 
+type Props = {
+  glide: Glide
+}
 
-const GlidePost: Component<any> = (props) => {
+const GlidePost: Component<Props> = (props) => {
   return (
     <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
       <div class="flex-it flex-row">
@@ -12,7 +16,7 @@ const GlidePost: Component<any> = (props) => {
           <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
             <img
               class="rounded-full"
-              src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+              src={props.glide.user.avatar}
             ></img>
           </div>
         </div>
@@ -20,7 +24,7 @@ const GlidePost: Component<any> = (props) => {
           <div class="flex-it justify-center flex-grow mb-1">
             <div class="flex-it justify-between flex-row w-full">
               <div>
-                <span class="font-bold">Filip99</span>
+                <span class="font-bold">{props.glide.user.nickName}</span>
                 <span class="mx-2">&#8226;</span>
                 <span class="text-gray-400">2h</span>
               </div>
@@ -35,11 +39,11 @@ const GlidePost: Component<any> = (props) => {
           <div class="flex-it flex-row flex-grow text-gray-400">
             <div class="flex-it flex-row items-center cursor-pointer mr-5 transition hover:text-blue-400">
               <AiOutlineMessage size={18} />
-              <span class="text-xs ml-3">321</span>
+              <span class="text-xs ml-3">{props.glide.subglidesCount}</span>
             </div>
             <div class="flex-it flex-row items-center cursor-pointer transition hover:text-pink-400">
               <FaRegularHeart size={18} />
-              <span class="text-xs ml-3">123</span>
+              <span class="text-xs ml-3">{props.glide.likesCount}</span>
             </div>
           </div>
         </article>
