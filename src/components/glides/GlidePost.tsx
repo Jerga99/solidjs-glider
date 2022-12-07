@@ -1,10 +1,10 @@
 import { AiOutlineMessage } from "solid-icons/ai";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
+import { Component } from "solid-js";
 
-const GlidePost = () => {
 
-
+const GlidePost: Component<any> = (props) => {
   return (
     <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
       <div class="flex-it flex-row">
@@ -30,7 +30,7 @@ const GlidePost = () => {
             </div>
           </div>
           <div class="flex-it flex-row flex-grow-0 items-center mb-2">
-            <div class="flex-it mr-3 mb-3 w-full">My First Post</div>
+            <div class="flex-it mr-3 mb-3 w-full">{props.glide.content}</div>
           </div>
           <div class="flex-it flex-row flex-grow text-gray-400">
             <div class="flex-it flex-row items-center cursor-pointer mr-5 transition hover:text-blue-400">

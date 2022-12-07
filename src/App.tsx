@@ -84,7 +84,7 @@ const App: Component = () => {
       <div class="h-px bg-gray-700 my-1" />
       <For each={glides()}>
         { (glide) =>
-          <GlidePost />
+          <GlidePost glide={glide} />
         }
       </For>
       {/* HOME PAGE END */}
