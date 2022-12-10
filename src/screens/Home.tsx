@@ -1,8 +1,39 @@
-import { Component, createSignal, createUniqueId, For, Show } from "solid-js";
+import { Component, createSignal, createUniqueId, For, onCleanup, onMount, Show } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
+
+
+const HelloWorld = () => {
+
+  onMount(() => {
+    console.log("Hello World is being instantiated!");
+  })
+
+  onCleanup(() => {
+    console.log("Hello World is being cleaned-up!");
+  })
+
+  return (
+    <div>Hello World</div>
+  )
+}
+
+const GoodbyeComponent = () => {
+
+  onMount(() => {
+    console.log("GoodbyeComponent is being instantiated!");
+  })
+
+  onCleanup(() => {
+    console.log("GoodbyeComponentis being cleaned-up!");
+  })
+
+  return (
+    <div>Goodbye</div>
+  )
+}
 
 
 const HomeScreen: Component = () => {
@@ -89,10 +120,11 @@ const HomeScreen: Component = () => {
         onClick={() => {setDisplayContent(!displayContent())}}>
         Toggle Content
       </button>
-      <Show when={displayContent()}>
-        <div>
-          Hello World!
-        </div>
+      <Show 
+        when={displayContent()}
+        fallback={<GoodbyeComponent />}
+      >
+        <HelloWorld />
       </Show>
       {/* HOME PAGE END */}
     </MainLayout>
