@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, createUniqueId, For, onMount } from "solid-js";
+import { Component, createSignal, createUniqueId, For } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
@@ -7,12 +7,6 @@ import { Glide } from "../types/Glide";
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [glides, setGlides] = createSignal<Glide[]>([]);
-
-  createEffect(() => {
-    if ((glides().length > 2)) {
-      alert("3 glides has been added! Yeeey!");
-    }
-  })
 
   const createGlide = () => {
     const glide = {
