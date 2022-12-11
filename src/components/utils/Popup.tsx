@@ -12,10 +12,12 @@ const Popup: Component<Props> = ({opener: Opener}) => {
   let popup: HTMLDivElement;
 
   onMount(() => {
+    window.addEventListener("resize", adjustPopup);
     window.addEventListener("click", closePopup);
   })
 
   onCleanup(() => {
+    window.removeEventListener("resize", adjustPopup);
     window.removeEventListener("click", closePopup);
   })
 
