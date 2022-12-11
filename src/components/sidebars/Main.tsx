@@ -44,11 +44,11 @@ const MainSidebar: Component = () => {
               </div>
             </div>
             {/* PROFILE MENU */}
-            <div class="flex-it my-3 hover:cursor-pointer">
+            <div class="flex-it hover:cursor-pointer">
               {/* POPUP START*/}
               <Popup 
                 opener={() => 
-                  <div class="flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer">
+                  <div class="my-3 flex-it items-center flex-row p-3 rounded-3xl hover:bg-gray-800 hover:rounded-3xl transition duration-200 cursor-pointer">
                     <div class="flex-it">
                       <div class="w-10 h-10 overflow-visible">
                         <img

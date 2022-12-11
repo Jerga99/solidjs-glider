@@ -17,10 +17,7 @@ const Popup: Component<Props> = ({opener: Opener}) => {
   })
 
   const adjustPopup = () => {
-    console.log("Adjusting!");
-    debugger
-    console.log(followTo);
-    console.log(popup);
+    popup.style.bottom = followTo.clientHeight + "px";
   }
 
   return (
