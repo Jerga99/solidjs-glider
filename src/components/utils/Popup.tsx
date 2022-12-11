@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal, Show } from "solid-js";
+import { Component, createEffect, createSignal, onCleanup, onMount, Show } from "solid-js";
 
 type Props = {
   opener: Component;
@@ -10,6 +10,14 @@ const Popup: Component<Props> = ({opener: Opener}) => {
   let followTo: HTMLDivElement;
   let popup: HTMLDivElement;
 
+  onMount(() => {
+    window.addEventListener("click", closePopup);
+  })
+
+  onCleanup(() => {
+    window.removeEventListener("click", closePopup);
+  })
+
   createEffect(() => {
     if (isOpen()) {
       adjustPopup();
@@ -20,11 +28,20 @@ const Popup: Component<Props> = ({opener: Opener}) => {
     popup.style.bottom = followTo.clientHeight + "px";
   }
 
+  const closePopup = () => {
+    if (isOpen()) {
+      setIsOpen(false);
+    }
+  }
+
   return (
     <div class="flex-it flex-grow">
       <div 
         ref={followTo!}
-        onClick={() => setIsOpen(!isOpen())
+        onClick={(e) => {
+          e.stopImmediatePropagation();
+          setIsOpen(!isOpen())
+        }
       }>
         <Opener />
       </div>
