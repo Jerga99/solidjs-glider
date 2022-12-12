@@ -1,7 +1,13 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
+import { useAuthState } from "../context/auth";
 
 const LoginScreen: Component = () => {
+
+  const authState = useAuthState()!;
+
+  console.log(authState.testValue);
+  console.log(authState.testFunction());
   
   return (
     <div class="flex-it justify-center items-center h-full">

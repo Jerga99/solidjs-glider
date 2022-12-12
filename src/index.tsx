@@ -4,11 +4,14 @@ import { Router } from "@solidjs/router";
 import App from "./App";
 
 import "./index.css";
+import AuthProvider from "./context/auth";
 
 render(
   () => 
   <Router>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </Router>,
   document.getElementById("root")!
 )
