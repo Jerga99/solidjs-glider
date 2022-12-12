@@ -1,13 +1,7 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
-import { useAuthState } from "../context/auth";
 
 const LoginScreen: Component = () => {
-
-  const authState = useAuthState()!;
-
-  console.log("Is Authenticated:" + authState.isAuthenticated);
-  console.log("Is Loading:" + authState.loading);
   
   return (
     <div class="flex-it justify-center items-center h-full">

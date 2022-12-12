@@ -3,16 +3,10 @@ import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
-import { useAuthState } from "../context/auth";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [glides, setGlides] = createSignal<Glide[]>([]);
-
-  const authState = useAuthState()!;
-
-  console.log("Is Authenticated:" + authState.isAuthenticated);
-  console.log("Is Loading:" + authState.loading);
 
   const createGlide = () => {
     const glide = {
