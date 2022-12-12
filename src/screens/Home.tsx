@@ -11,13 +11,8 @@ const HomeScreen: Component = () => {
 
   const authState = useAuthState()!;
 
-  console.log("Is Authenticated:" + authState.isAuthenticated());
-  console.log("Is Loading:" + authState.loading());
-
-  onMount(() => {
-    authState.setIsAuthenticated(true);
-    authState.setLoading(false);
-  })
+  console.log("Is Authenticated:" + authState.isAuthenticated);
+  console.log("Is Loading:" + authState.loading);
 
   const createGlide = () => {
     const glide = {
