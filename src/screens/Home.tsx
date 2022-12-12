@@ -10,7 +10,7 @@ const HomeScreen: Component = () => {
   const [glides, setGlides] = createSignal<Glide[]>([]);
 
   const testValue = pageSize;
-  console.log(testValue);
+  console.log("HOME IS GETTING:" + JSON.stringify(testValue()));
 
   const createGlide = () => {
     const glide = {
