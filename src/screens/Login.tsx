@@ -6,8 +6,8 @@ const LoginScreen: Component = () => {
 
   const authState = useAuthState()!;
 
-  console.log(authState.testValue);
-  console.log(authState.testFunction());
+  console.log("Is Authenticated:" + authState.isAuthenticated());
+  console.log("Is Loading:" + authState.loading());
   
   return (
     <div class="flex-it justify-center items-center h-full">

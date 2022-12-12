@@ -1,26 +1,28 @@
-import { createContext, onCleanup, onMount, ParentComponent, useContext } from "solid-js"
+import { Accessor, createContext, createSignal, onCleanup, onMount, ParentComponent, Setter, useContext } from "solid-js"
 
 type AuthStateContextValues = {
-  testValue: number;
-  testFunction: () => string;
+  isAuthenticated: Accessor<boolean>;
+  loading: Accessor<boolean>;
+  setIsAuthenticated: Setter<boolean>;
+  setLoading: Setter<boolean>
 }
 
 const AuthStateContext = createContext<AuthStateContextValues>();
 
 const AuthProvider: ParentComponent = (props) => {
+  const [isAuthenticated, setIsAuthenticated] = createSignal(false);
+  const [loading, setLoading] = createSignal(true);
 
   onMount(() => {
     console.log("Initializing AuthProvider!");
   })
 
-  onCleanup(() => {
-    console.log("Cleaning-up AuthProvider!")
-  })
-
   return (
     <AuthStateContext.Provider value={{
-      testValue: 100,
-      testFunction: () => "Hello World"
+      isAuthenticated,
+      loading,
+      setLoading,
+      setIsAuthenticated
     }}>
       {props.children}
     </AuthStateContext.Provider>
