@@ -1,7 +1,16 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Component, createSignal } from "solid-js";
 
 const RegisterScreen: Component = () => {
+  const [form, setForm] = createSignal({
+    fullName: "",
+    nickName: "",
+    email: "",
+    avatar: "",
+    password: "",
+    passwordConfirmation: ""
+  });
+
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Glider - Create Account</div>
@@ -16,6 +25,15 @@ const RegisterScreen: Component = () => {
                       Full Name
                     </label>
                     <input
+                      onInput={(e) => {
+                        const key = "fullName";
+                        setForm({
+                          ...form(),
+                          // fullName: e.currentTarget.value
+                          [key]: e.currentTarget.value
+                        })
+                        console.log(form());
+                      }}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -31,6 +49,14 @@ const RegisterScreen: Component = () => {
                       Nick Name
                     </label>
                     <input
+                      onInput={(e) => {
+                        setForm({
+                          ...form(),
+                          nickName: e.currentTarget.value
+                        })
+
+                        console.log(form());
+                      }}
                       type="text"
                       name="nickName"
                       id="nickName"
