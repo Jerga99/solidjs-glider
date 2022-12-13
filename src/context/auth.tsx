@@ -1,5 +1,6 @@
 import { Accessor, createContext, createSignal, onCleanup, onMount, ParentComponent, Setter, useContext } from "solid-js"
 import { createStore } from "solid-js/store";
+import Loader from "../components/utils/Loader";
 
 type AuthStateContextValues = {
   isAuthenticated: boolean;
@@ -38,6 +39,7 @@ const AuthProvider: ParentComponent = (props) => {
  
   return (
     <AuthStateContext.Provider value={store}>
+      {/* <Loader size={100} /> */}
       {props.children}
     </AuthStateContext.Provider>
   )
