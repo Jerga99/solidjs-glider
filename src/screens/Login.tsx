@@ -2,7 +2,6 @@ import { A } from "@solidjs/router";
 import { Component } from "solid-js";
 
 const LoginScreen: Component = () => {
-  
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Glider - Get In</div>
