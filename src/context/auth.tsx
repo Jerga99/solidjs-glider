@@ -1,4 +1,4 @@
-import { Accessor, createContext, createSignal, onCleanup, onMount, ParentComponent, Setter, useContext } from "solid-js"
+import { createContext, onMount, ParentComponent, Show, useContext } from "solid-js"
 import { createStore } from "solid-js/store";
 import Loader from "../components/utils/Loader";
 
@@ -31,16 +31,20 @@ const AuthProvider: ParentComponent = (props) => {
     return new Promise((res, rej) => {
       setTimeout(() => {
         setStore("isAuthenticated", true);
-        // res(true);
-        rej("Ooopsie we got some problem here");
+        res(true);
+        // rej("Ooopsie we got some problem here");
       }, 1000);
     })
   }
  
   return (
     <AuthStateContext.Provider value={store}>
-      {/* <Loader size={100} /> */}
-      {props.children}
+      <Show 
+        when={store.loading}
+        fallback={props.children}
+      >
+        <Loader size={100} />
+      </Show>
     </AuthStateContext.Provider>
   )
 }

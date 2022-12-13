@@ -19,10 +19,10 @@ export const links = [{
   icon: () => <CgMoreO size={SIZE} />
 }, {
   name: "Login", // Notification
-  href: "/login", // /notification
+  href: "/auth/login", // /notification
   icon: () => <IoNotificationsCircleOutline size={SIZE} />
 }, {
   name: "Register", // Discover
-  href: "/register", // /discover
+  href: "/auth/register", // /discover
   icon: () => <RiMapCompassDiscoverLine size={SIZE} />
 }]
