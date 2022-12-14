@@ -1,7 +1,15 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Accessor, Component } from "solid-js";
 import useForm from "../hooks/useForm";
 import { AuthForm, RegisterForm } from "../types/Form";
+
+declare module "solid-js" {
+  namespace JSX {
+    interface Directives {
+      validate: number;
+    }
+  }
+}
 
 const RegisterScreen: Component = () => {
   const {handleInput, submitForm} = useForm<RegisterForm>({
@@ -16,6 +24,13 @@ const RegisterScreen: Component = () => {
   // we want to get the data from the form when the form is submitted
   const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
+  }
+
+  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
+    const value = accessor();
+
+    console.log(ref);
+    console.log(value);
   }
 
 
@@ -34,6 +49,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={100}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -50,6 +66,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={10000}
                       type="text"
                       name="nickName"
                       id="nickName"
