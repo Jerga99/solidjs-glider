@@ -12,6 +12,11 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: ""
   });
 
+  // we want to get the data from the form when the form is submitted
+  const onFormSubmit = (form: any) => {
+    console.log(form);
+  }
+
 
   return (
     <div class="flex-it justify-center items-center h-full">
@@ -112,7 +117,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
-                  onClick={submitForm}
+                  onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0

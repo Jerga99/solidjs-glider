@@ -1,6 +1,5 @@
-import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
 import { createStore } from "solid-js/store";
-import { GliderInputEvent, RegisterForm } from "../types/Form";
+import { GliderInputEvent, RegisterForm, SubmitCallback } from "../types/Form";
 
 const useForm = (initialForm: RegisterForm) => {
   const [form, setForm] = createStore<RegisterForm>(initialForm);
@@ -10,8 +9,8 @@ const useForm = (initialForm: RegisterForm) => {
     setForm(name as keyof RegisterForm, value);
   }
 
-  const submitForm = () => {
-    console.log(form);
+  const submitForm = (submitCallback: SubmitCallback) => () => {
+    submitCallback(form);
   }
 
   return {
