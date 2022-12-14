@@ -1,35 +1,22 @@
 import { createEffect, createSignal, onCleanup, onMount } from "solid-js";
+import { createStore } from "solid-js/store";
+import { GliderInputEvent, RegisterForm } from "../types/Form";
 
-const useForm = () => {
-  const [count, setCount] = createSignal(100);
+const useForm = (initialForm: RegisterForm) => {
+  const [form, setForm] = createStore<RegisterForm>(initialForm);
 
-  onMount(() => {
-    console.log("useForm mounted");
-  })
-
-  onCleanup(() => {
-    console.log("useForm cleaned-up");
-  })
-
-  createEffect(() => {
-    console.log(count());
-  })
-
-  const increaseCount = () => {
-    setCount(count() + 1);
+  const handleInput = (e: GliderInputEvent) => {
+    const {name, value} = e.currentTarget;
+    setForm(name as keyof RegisterForm, value);
   }
 
-  const decreaseCount = () => {
-    setCount(count() - 1);
+  const submitForm = () => {
+    console.log(form);
   }
 
   return {
-    count,
-    increaseCount, 
-    decreaseCount,
-    funnyFunction: () => {
-      console.log("I am funny. hahaha")
-    }
+    handleInput,
+    submitForm
   }
 }
 
