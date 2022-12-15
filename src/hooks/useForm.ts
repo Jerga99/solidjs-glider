@@ -24,8 +24,10 @@ const useForm = <T extends Form> (initialForm: T) => {
     ref.onblur = checkValidity(ref)
   }
 
-  const validator = (ref: HTMLInputElement) => {
-    return false;
+  const validator = (element: HTMLInputElement) => {
+    if (element.value.length === 0) { return true; }
+
+    return element.value.length < 7;
   }
 
   const checkValidity = (element: HTMLInputElement) => () => {
