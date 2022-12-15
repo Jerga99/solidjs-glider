@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { Accessor, Component } from "solid-js";
-import useForm, { maxLengthValidator } from "../hooks/useForm";
+import useForm, { firstUppercaseLetter, maxLengthValidator } from "../hooks/useForm";
 import { AuthForm, RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
@@ -33,7 +33,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
-                      use:validate={[maxLengthValidator]}
+                      use:validate={[maxLengthValidator, firstUppercaseLetter]}
                       type="text"
                       name="fullName"
                       id="fullName"

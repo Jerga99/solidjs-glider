@@ -21,6 +21,15 @@ export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLeng
   return `${element.name} should be less than ${maxLength} characters`;
 }
 
+export const firstUppercaseLetter = (element: HTMLInputElement) => {
+  const {value} = element;
+
+  if (value.length === 0) { return ""; }
+
+  return value[0] !== value[0].toLocaleUpperCase() ? 
+    `${element.name} first letter should be uppercased` : "";
+}
+
 const useForm = <T extends Form> (initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
   const [errors, setErrors] = createStore<Form>();
