@@ -1,5 +1,6 @@
+import { Accessor } from "solid-js";
 import { createStore } from "solid-js/store";
-import { Form, GliderInputEvent, RegisterForm, SubmitCallback } from "../types/Form";
+import { Form, GliderInputEvent, SubmitCallback } from "../types/Form";
 
 const useForm = <T extends Form> (initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
@@ -16,9 +17,22 @@ const useForm = <T extends Form> (initialForm: T) => {
     submitCallback(form);
   }
 
+  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
+    const value = accessor();
+
+    ref.onblur = () => {
+      console.log("On Blur!");
+    }
+
+    ref.oninput = () => {
+      console.log("On Input!");
+    }
+  }
+
   return {
     handleInput,
-    submitForm
+    submitForm,
+    validate
   }
 }
 

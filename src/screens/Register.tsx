@@ -12,7 +12,7 @@ declare module "solid-js" {
 }
 
 const RegisterScreen: Component = () => {
-  const {handleInput, submitForm} = useForm<RegisterForm>({
+  const {handleInput, submitForm, validate} = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -25,19 +25,6 @@ const RegisterScreen: Component = () => {
   const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
   }
-
-  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
-    const value = accessor();
-
-    ref.onblur = () => {
-      console.log("On Blur!");
-    }
-
-    ref.oninput = () => {
-      console.log("On Input!");
-    }
-  }
-
 
   return (
     <div class="flex-it justify-center items-center h-full">
