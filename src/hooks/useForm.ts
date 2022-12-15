@@ -37,20 +37,20 @@ const useForm = <T extends Form> (initialForm: T) => {
     submitCallback(form);
   }
 
-  const validate = (ref: HTMLInputElement, accessor: Accessor<number>) => {
+  const validate = (ref: HTMLInputElement, accessor: Accessor<Validator[]>) => {
     const validators = accessor() || [];
-    debugger
-
-    ref.onblur = checkValidity(ref)
+    ref.onblur = checkValidity(ref, validators)
   }
 
-  const checkValidity = (element: HTMLInputElement) => () => {
-    const message = maxLengthValidator(element, 10);
+  const checkValidity = (element: HTMLInputElement, validators: Validator[]) => () => {
+    for (const validator of validators) {
+      const message = validator(element);
 
-    if (!!message) {
-      setErrors(element.name, message);
-    } else {
-      setErrors(element.name, "");
+      if (!!message) {
+        setErrors(element.name, message);
+      } else {
+        setErrors(element.name, "");
+      }
     }
 
     console.log(JSON.stringify(errors));
