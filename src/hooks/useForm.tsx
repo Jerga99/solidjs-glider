@@ -30,6 +30,20 @@ export const FormError: ParentComponent = (props) => {
   )
 }
 
+export const requiredValidator: Validator = (element: HTMLInputElement) => {
+  return element.value.length === 0 ?
+    `${element.name} is required` : "";
+}
+
+export const minLengthValidator: Validator = (element: HTMLInputElement, minLength = 7) => {
+  if (
+    element.value.length === 0 ||
+    element.value.length > minLength
+    ) { return ""; }
+
+  return `${element.name} should be more than ${minLength} characters`;
+}
+
 export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 7) => {
   if (
     element.value.length === 0 ||

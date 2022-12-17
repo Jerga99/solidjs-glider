@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { Accessor, Component, Show } from "solid-js";
-import useForm, { firstUppercaseLetter, FormError, maxLengthValidator } from "../hooks/useForm";
+import useForm, { firstUppercaseLetter, FormError, maxLengthValidator, minLengthValidator, requiredValidator } from "../hooks/useForm";
 import { AuthForm, RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
@@ -33,7 +33,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
-                      use:validate={[maxLengthValidator, firstUppercaseLetter]}
+                      use:validate={[requiredValidator, minLengthValidator, firstUppercaseLetter]}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -48,7 +48,10 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
-                      use:validate={[maxLengthValidator]}
+                      use:validate={[
+                        requiredValidator, 
+                        (ele) => minLengthValidator(ele, 4)
+                      ]}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -63,11 +66,13 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handleInput}
+                      use:validate={[requiredValidator]}
                       type="text"
                       name="email"
                       id="email"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["email"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
@@ -75,12 +80,14 @@ const RegisterScreen: Component = () => {
                       Avatar
                     </label>
                     <input
+                      use:validate={[requiredValidator]}
                       onInput={handleInput}
                       type="text"
                       name="avatar"
                       id="avatar"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["avatar"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
@@ -88,12 +95,14 @@ const RegisterScreen: Component = () => {
                       Password
                     </label>
                     <input
+                      use:validate={[requiredValidator]}
                       onInput={handleInput}
                       type="password"
                       name="password"
                       id="password"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["password"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
@@ -101,12 +110,14 @@ const RegisterScreen: Component = () => {
                       Password Confirmation
                     </label>
                     <input
+                      use:validate={[requiredValidator]}
                       onInput={handleInput}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <FormError>{errors["passwordConfirmation"]}</FormError>
                   </div>
                 </div>
               </div>
