@@ -1,4 +1,4 @@
-import { Accessor } from "solid-js";
+import { Accessor, Component } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 import { Form, FormErrors, GliderInputEvent, SubmitCallback } from "../types/Form";
 
@@ -11,6 +11,16 @@ declare module "solid-js" {
 }
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
+
+type ErrorProps = { message: string; }
+
+export const FormError: Component<ErrorProps> = (props) => {
+  return (
+    <div class="flex-it grow text-xs bg-red-400 text-white p-3 pl-3 mt-1 rounded-md">
+      {props.message}
+    </div>
+  )
+}
 
 export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 7) => {
   if (
