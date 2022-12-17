@@ -12,6 +12,20 @@ declare module "solid-js" {
 
 type Validator = (element: HTMLInputElement, ...rest: any[]) => string;
 
+const niceName = (text: string) => {
+  const words = text.split(/(?=[A-Z])/);
+
+  return (words.map((word, i) => {
+    // if (i === 0) {
+    //   return word[0].toUpperCase() + word.substring(1);
+    // }
+
+    // return word.toLowerCase();
+
+    return word[0].toUpperCase() + word.substring(1);
+  })).join(" ");
+}
+
 export const FormError: ParentComponent = (props) => {
   const errors = () => props.children as string[] || [];
 
@@ -32,7 +46,7 @@ export const FormError: ParentComponent = (props) => {
 
 export const requiredValidator: Validator = (element: HTMLInputElement) => {
   return element.value.length === 0 ?
-    `${element.name} is required` : "";
+    `${niceName(element.name)} is required` : "";
 }
 
 export const minLengthValidator: Validator = (element: HTMLInputElement, minLength = 7) => {
@@ -41,7 +55,7 @@ export const minLengthValidator: Validator = (element: HTMLInputElement, minLeng
     element.value.length > minLength
     ) { return ""; }
 
-  return `${element.name} should be more than ${minLength} characters`;
+  return `${niceName(element.name)} should be more than ${minLength} characters`;
 }
 
 export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLength = 7) => {
@@ -50,7 +64,7 @@ export const maxLengthValidator: Validator = (element: HTMLInputElement, maxLeng
     element.value.length < maxLength
     ) { return ""; }
 
-  return `${element.name} should be less than ${maxLength} characters`;
+  return `${niceName(element.name)} should be less than ${maxLength} characters`;
 }
 
 export const firstUppercaseLetter = (element: HTMLInputElement) => {
@@ -59,7 +73,7 @@ export const firstUppercaseLetter = (element: HTMLInputElement) => {
   if (value.length === 0) { return ""; }
 
   return value[0] !== value[0].toLocaleUpperCase() ? 
-    `${element.name} first letter should be uppercased` : "";
+    `${niceName(element.name)} first letter should be uppercased` : "";
 }
 
 const useForm = <T extends Form> (initialForm: T) => {
