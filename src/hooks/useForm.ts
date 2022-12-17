@@ -1,6 +1,6 @@
 import { Accessor } from "solid-js";
-import { createStore } from "solid-js/store";
-import { Form, GliderInputEvent, SubmitCallback } from "../types/Form";
+import { createStore, produce } from "solid-js/store";
+import { Form, FormErrors, GliderInputEvent, SubmitCallback } from "../types/Form";
 
 declare module "solid-js" {
   namespace JSX {
@@ -32,7 +32,7 @@ export const firstUppercaseLetter = (element: HTMLInputElement) => {
 
 const useForm = <T extends Form> (initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
-  const [errors, setErrors] = createStore<Form>();
+  const [errors, setErrors] = createStore<FormErrors>();
 
   const handleInput = (e: GliderInputEvent) => {
     const {name, value} = e.currentTarget;
@@ -52,14 +52,16 @@ const useForm = <T extends Form> (initialForm: T) => {
   }
 
   const checkValidity = (element: HTMLInputElement, validators: Validator[]) => () => {
+    setErrors(element.name, []);
+
     for (const validator of validators) {
       const message = validator(element);
 
       if (!!message) {
-        setErrors(element.name, message);
-      } else {
-        setErrors(element.name, "");
-      }
+        setErrors(produce(errors => {
+          errors[element.name].push(message);
+        }));
+      } 
     }
 
     console.log(JSON.stringify(errors));

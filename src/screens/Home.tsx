@@ -28,10 +28,6 @@ const HomeScreen: Component = () => {
       items.unshift(glide);
     }));
 
-    // setGlides(produce((glides) => {
-    //   glides.items.unshift(glide);
-    // }));
-
     setContent("");
   }
 
