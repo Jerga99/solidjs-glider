@@ -3,10 +3,13 @@ import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
+import { createStore, produce } from "solid-js/store";
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
-  const [glides, setGlides] = createSignal<Glide[]>([]);
+  const [glides, setGlides] = createStore({
+    items: [] as Glide[]
+  });
 
   const createGlide = () => {
     const glide = {
@@ -21,7 +24,14 @@ const HomeScreen: Component = () => {
       date: new Date()
     }
 
-    setGlides([glide, ...glides()]);
+    setGlides("items", produce((items) => {
+      items.unshift(glide);
+    }));
+
+    // setGlides(produce((glides) => {
+    //   glides.items.unshift(glide);
+    // }));
+
     setContent("");
   }
 
@@ -77,7 +87,7 @@ const HomeScreen: Component = () => {
         {/* MESSENGER END */}
       </div>
       <div class="h-px bg-gray-700 my-1" />
-      <For each={glides()}>
+      <For each={glides.items}>
         { (glide) =>
           <GlidePost glide={glide} />
         }
