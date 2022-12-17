@@ -39,9 +39,7 @@ const RegisterScreen: Component = () => {
                       id="fullName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                    <Show when={errors["fullName"]?.length > 0}>
-                      <FormError messages={errors["fullName"]} />
-                    </Show>
+                    <FormError>{errors["fullName"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
@@ -56,9 +54,7 @@ const RegisterScreen: Component = () => {
                       id="nickName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                      <Show when={errors["nickName"]?.length > 0}>
-                        <FormError messages={errors["nickName"]} />
-                      </Show>
+                    <FormError>{errors["nickName"]}</FormError>
                   </div>
 
                   <div class="flex-it py-2">
