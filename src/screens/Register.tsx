@@ -1,6 +1,6 @@
 import { A } from "@solidjs/router";
 import { Accessor, Component, Show } from "solid-js";
-import useForm, { firstUppercaseLetter, FormError, maxLengthValidator, minLengthValidator, requiredValidator } from "../hooks/useForm";
+import useForm, { compareWith, firstUppercaseLetter, FormError, maxLengthValidator, minLengthValidator, requiredValidator } from "../hooks/useForm";
 import { AuthForm, RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
@@ -110,7 +110,10 @@ const RegisterScreen: Component = () => {
                       Password Confirmation
                     </label>
                     <input
-                      use:validate={[requiredValidator]}
+                      use:validate={[
+                        requiredValidator,
+                        (ele) => compareWith(ele, "password")
+                      ]}
                       onInput={handleInput}
                       type="password"
                       name="passwordConfirmation"

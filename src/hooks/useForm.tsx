@@ -45,6 +45,14 @@ export const FormError: ParentComponent = (props) => {
   )
 }
 
+export const compareWith: Validator = (element: HTMLInputElement, fieldName: string) => (form: Form) => {
+  if (element.value.length === 0) { return ""};
+
+  const compareToValue = form[fieldName];
+  return element.value !== compareToValue ? 
+   `${niceName(element.name)} should be same as ${niceName(fieldName)}` : "";
+}
+
 export const requiredValidator: Validator = (element: HTMLInputElement) => (form: Form) => {
   return element.value.length === 0 ?
     `${niceName(element.name)} is required` : "";
