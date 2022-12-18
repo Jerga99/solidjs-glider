@@ -92,13 +92,17 @@ const useForm = <T extends Form> (initialForm: T) => {
   }
 
   const submitForm = (submitCallback: SubmitCallback<T>) => () => {
+    for (const field in validatorFields) {
+      const config = validatorFields[field];
+      checkValidity(config)();
+    }
+
     submitCallback(form);
   }
 
   const validate = (ref: HTMLInputElement, accessor: Accessor<Validator[]>) => {
     const validators = accessor() || [];
     let config: ValidatorConfig;
-    debugger
     validatorFields[ref.name] = config = {element: ref, validators};
 
     ref.onblur = checkValidity(config)
