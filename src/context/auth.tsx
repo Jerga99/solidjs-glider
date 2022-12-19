@@ -29,7 +29,6 @@ const AuthProvider: ParentComponent = (props) => {
 
   const listenToAuthChanges = () => {
     onAuthStateChanged(firebaseAuth, (user) => {
-      debugger
       if (!!user) {
         setStore("isAuthenticated", true);
         setStore("user", user as any)
