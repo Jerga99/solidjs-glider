@@ -4,7 +4,7 @@ import { RegisterForm } from "../types/Form";
 
 const useRegister = () => {
   const register = async (registerForm: RegisterForm) => {
-    const { user } =  await registerUser(registerForm);
+    const user =  await registerUser(registerForm);
     console.log(user);
   }
 
