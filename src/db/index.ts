@@ -15,11 +15,3 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const firebaseAuth = getAuth(app);
-
-export const getUsers = async () => {
-  const usersCol = collection(db, "users");
-  const usersSnap = await getDocs(usersCol);
-  const userList = usersSnap.docs.map(doc => doc.data());
-  return userList;
-}
-
