@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "@solidjs/router";
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, onMount, ParentComponent, Show, useContext } from "solid-js"
 import { createStore } from "solid-js/store";
+import { getUser } from "../api/auth";
 import Loader from "../components/utils/Loader";
 import { firebaseAuth } from "../db";
 import { User } from "../types/User";
@@ -21,7 +22,7 @@ const initialState = () => ({
 const AuthStateContext = createContext<AuthStateContextValues>();
 
 const AuthProvider: ParentComponent = (props) => {
-  const [store, setStore] = createStore(initialState());
+  const [store, setStore] = createStore<AuthStateContextValues>(initialState());
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -31,10 +32,12 @@ const AuthProvider: ParentComponent = (props) => {
   })
 
   const listenToAuthChanges = () => {
-    onAuthStateChanged(firebaseAuth, (user) => {
+    onAuthStateChanged(firebaseAuth, async (user) => {
       if (!!user) {
+        const gliderUser = await getUser(user.uid);
+        
         setStore("isAuthenticated", true);
-        setStore("user", user as any)
+        setStore("user", gliderUser);
 
         if (location.pathname.includes("/auth")) {
           navigate("/", {replace: true});
