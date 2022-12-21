@@ -5,7 +5,7 @@ import useForm, { compareWith, firstUppercaseLetter, FormError, minLengthValidat
 import { RegisterForm } from "../types/Form";
 
 const RegisterScreen: Component = () => {
-  const {authUser} = useAuth("register")
+  const {authUser, loading} = useAuth("register")
   const {handleInput, submitForm, validate, errors} = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
@@ -134,6 +134,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
+                  disabled={loading()}
                   onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="
