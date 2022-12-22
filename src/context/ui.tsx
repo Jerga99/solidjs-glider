@@ -11,26 +11,36 @@ type UIState = {
   snackbars: SnackbarMesssage[]
 }
 
+type UIDispatch = {
+  addSnackbar: (s: SnackbarMesssage) => void
+}
+
 const UIStateContext = createContext<UIState>();
+const UIDispatchContext = createContext<UIDispatch>();
 
 const defaultState = (): UIState => ({
-  snackbars: [
-    {message: "Hello World", type: "success"},
-    {message: "Ooop, something wrong", type: "error"},
-    {message: "Verify your profile", type: "warning"},
-  ]
+  snackbars: []
 })
 
 const UIProvider: ParentComponent = (props) => {
   const [store, setStore] = createStore<UIState>(defaultState());
 
+  const addSnackbar = (snackbar: SnackbarMesssage) => {
+    alert(snackbar.message);
+  }
+
   return (
     <UIStateContext.Provider value={store}>
-      {props.children}
+      <UIDispatchContext.Provider value={{
+        addSnackbar
+      }}>
+        {props.children}
+      </UIDispatchContext.Provider>
     </UIStateContext.Provider>
   )
 }
 
 export const useUIState = () => useContext(UIStateContext)!;
+export const useUIDispatch = () => useContext(UIDispatchContext)!;
 
 export default UIProvider;

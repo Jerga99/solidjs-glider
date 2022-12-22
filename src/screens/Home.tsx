@@ -5,9 +5,11 @@ import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
 import { createStore, produce } from "solid-js/store";
 import { useAuthState } from "../context/auth";
+import { useUIDispatch } from "../context/ui";
 
 const HomeScreen: Component = () => {
   const {user} = useAuthState()!;
+  const {addSnackbar} = useUIDispatch();
   const [content, setContent] = createSignal("");
   const [glides, setGlides] = createStore({
     items: [] as Glide[]
@@ -30,6 +32,7 @@ const HomeScreen: Component = () => {
     //   items.unshift(glide);
     // }));
 
+    addSnackbar({message: "Glide Added!", type: "success"});
     setContent("");
   }
 
