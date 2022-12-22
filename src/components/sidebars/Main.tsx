@@ -5,8 +5,11 @@ import Popup from "../utils/Popup";
 import { links } from "./links";
 import pageSize from "../../reactive/pageSize";
 import { RiDesignQuillPenLine } from "solid-icons/ri";
+import { useAuthState } from "../../context/auth";
 
 const MainSidebar: Component = () => {
+  const {user} = useAuthState()!;
+
   return (
     <header class="lg:flex-grow flex-it items-end">
       <div class="xl:w-80 w-20 flex-it">
@@ -60,12 +63,12 @@ const MainSidebar: Component = () => {
                       <div class="w-10 h-10 overflow-visible">
                         <img
                           class="rounded-full"
-                          src="https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
+                          src={user?.avatar}
                         ></img>
                       </div>
                     </div>
                     <div class="flex-it xl:flex hidden flex-grow flex-row justify-between items-center">
-                      <div class="flex-it mx-3 font-bold">Filip99</div>
+                      <div class="flex-it mx-3 font-bold">{user?.nickName}</div>
                       <div class="flex-it">
                         <FiMoreHorizontal />
                       </div>
