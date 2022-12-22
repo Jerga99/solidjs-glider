@@ -1,7 +1,11 @@
 import { IoCloseCircle } from "solid-icons/io";
 import { Component } from "solid-js";
 
-export const Snackbar: Component = () => {  
+type Props = {
+  message: string;
+}
+
+export const Snackbar: Component<Props> = (props) => {  
   const type: any = "success";
 
   return (
@@ -19,7 +23,7 @@ export const Snackbar: Component = () => {
         </button>
       </div>
       <div class="flex-it px-2 pb-3">
-        Hello World
+        {props.message}
       </div>
       <div 
         style={{width: `100%`}}
