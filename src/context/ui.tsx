@@ -36,7 +36,13 @@ const UIProvider: ParentComponent = (props) => {
   }
 
   const removeSnackbar = (id: string) => () => {
-    alert("Removing: " + id);
+    setStore("snackbars", produce(snackbars => {
+      const index = snackbars.findIndex((snackbar) => snackbar.id === id);
+
+      if (index > -1) {
+        snackbars.splice(index, 1);
+      }
+    }))
   }
 
   return (
