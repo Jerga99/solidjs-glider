@@ -19,11 +19,13 @@ const useMessenger = () => {
     }
 
     alert(JSON.stringify(glide));
+    setForm({content: ""});
   }
 
   return {
     handleInput,
-    handleSubmit
+    handleSubmit,
+    form
   }
 }
 

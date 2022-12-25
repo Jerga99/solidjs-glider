@@ -5,7 +5,7 @@ import useMessenger from "../../hooks/useMessenger";
 
 const Messenger = () => {
   const {user} = useAuthState()!;
-  const {handleInput, handleSubmit} = useMessenger();
+  const {handleInput, handleSubmit, form} = useMessenger();
   
   return (
     <div class="flex-it py-1 px-4 flex-row">
@@ -20,6 +20,7 @@ const Messenger = () => {
       <div class="flex-it flex-grow">
         <div class="flex-it">
           <textarea
+            value={form.content}
             onInput={handleInput}
             name="content"
             rows="1"
