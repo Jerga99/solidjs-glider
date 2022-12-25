@@ -1,40 +1,18 @@
-import { Component, createSignal, createUniqueId, For, onCleanup, onMount } from "solid-js";
+import { Component, For } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import GlidePost from "../components/glides/GlidePost";
 import { Glide } from "../types/Glide";
-import { createStore, produce } from "solid-js/store";
+import { createStore } from "solid-js/store";
 import { useAuthState } from "../context/auth";
-import { useUIDispatch } from "../context/ui";
+import useMessenger from "../hooks/useMessenger";
 
 const HomeScreen: Component = () => {
   const {user} = useAuthState()!;
-  const {addSnackbar} = useUIDispatch();
-  const [content, setContent] = createSignal("");
+  const {handleInput, handleSubmit} = useMessenger();
   const [glides, setGlides] = createStore({
     items: [] as Glide[]
   });
-
-  const createGlide = () => {
-    const glide = {
-      id: createUniqueId(),
-      content: content(),
-      user: {
-        nickName: "Filip99",
-        avatar: "https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png"
-      },
-      likesCount: 0,
-      subglidesCount: 0,
-      date: new Date()
-    }
-
-    // setGlides("items", produce((items) => {
-    //   items.unshift(glide);
-    // }));
-
-    addSnackbar({message: "Glide Added!", type: "success"});
-    setContent("");
-  }
 
   return (
     <MainLayout>
@@ -52,10 +30,7 @@ const HomeScreen: Component = () => {
         <div class="flex-it flex-grow">
           <div class="flex-it">
             <textarea
-              value={content()}
-              onInput={(event) => {
-                setContent(event.currentTarget.value);
-              }}
+              onInput={handleInput}
               name="content"
               rows="1"
               id="glide"
@@ -72,7 +47,7 @@ const HomeScreen: Component = () => {
             </div>
             <div class="flex-it w-32 mt-3 cursor-pointer">
               <button
-                onClick={createGlide}
+                onClick={handleSubmit}
                 type="button"
                 class="
                   disabled:cursor-not-allowed disabled:bg-gray-400
