@@ -1,9 +1,10 @@
 import { For } from "solid-js";
-import { useUIState } from "../../context/ui";
+import { useUIDispatch, useUIState } from "../../context/ui";
 import { Snackbar } from "./index";
 
 export default function SnackbarContainer() {
   const {snackbars} = useUIState();
+  const {removeSnackbar} = useUIDispatch();
   
   return (
     <div class="fixed z-50 top-0 right-0 p-4 w-ful md:max-w-xs">
@@ -13,6 +14,7 @@ export default function SnackbarContainer() {
             <Snackbar 
               message={snackbar.message} 
               type={snackbar.type}
+              onClose={removeSnackbar(snackbar.id!)}
             />
           }
         </For>
