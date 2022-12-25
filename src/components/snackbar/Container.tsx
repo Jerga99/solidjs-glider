@@ -11,7 +11,7 @@ export default function SnackbarContainer() {
       <ul class="flex flex-col space-y-2">
         <For each={snackbars}>
           {(snackbar) =>
-            <Snackbar 
+            <Snackbar
               message={snackbar.message} 
               type={snackbar.type}
               onClose={removeSnackbar(snackbar.id!)}
