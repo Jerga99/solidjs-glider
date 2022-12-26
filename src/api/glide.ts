@@ -3,6 +3,9 @@ import { db } from "../db";
 import { Glide } from "../types/Glide";
 
 
+const getGlides = () => {
+  alert("Getting new glides!");
+}
 
 const createGlide = async (form: {
   content: string;
@@ -27,5 +30,6 @@ const createGlide = async (form: {
 
 
 export {
-  createGlide
+  createGlide,
+  getGlides
 }
