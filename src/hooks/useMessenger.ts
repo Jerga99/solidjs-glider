@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
+import { createGlide } from "../api/glide";
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 import { GliderInputEvent, MessengerForm } from "../types/Form";
@@ -32,7 +33,7 @@ const useMessenger = () => {
       uid: user!.uid
     }
 
-    alert(JSON.stringify(glide));
+    createGlide(glide);
     setForm({content: ""});
     setLoading(false);
   }
