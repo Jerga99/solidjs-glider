@@ -1,12 +1,13 @@
-import { doc, Timestamp } from "firebase/firestore";
+import { addDoc, collection, doc, Timestamp } from "firebase/firestore";
 import { db } from "../db";
+import { Glide } from "../types/Glide";
 
 
 
-const createGlide = (form: {
+const createGlide = async (form: {
   content: string;
   uid: string;
-}) => {
+}): Promise<Glide> => {
   const userRef = doc(db, "users", form.uid);
 
   const glideToStore = {
@@ -17,9 +18,11 @@ const createGlide = (form: {
     date: Timestamp.now()
   }
 
-  console.log(glideToStore);
+  const glideCollection = collection(db, "glides");
+  const added = await addDoc(glideCollection, glideToStore);
+  
 
-  return glideToStore;
+  return {...glideToStore, id: added.id};
 }
 
 
