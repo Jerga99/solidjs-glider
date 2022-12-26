@@ -23,7 +23,6 @@ const useGlides = () => {
     setStore("loading", true);
     try {
       const {glides} = await getGlides();
-      debugger
       setStore("glides", glides);
     } catch(error) {
       const message = (error as FirebaseError).message;
