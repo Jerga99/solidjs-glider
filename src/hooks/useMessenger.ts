@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 import { createGlide } from "../api/glide";
@@ -33,9 +34,15 @@ const useMessenger = () => {
       uid: user!.uid
     }
 
-    createGlide(glide);
-    setForm({content: ""});
-    setLoading(false);
+    try {
+      createGlide(glide);
+      setForm({content: ""});
+    } catch (error) {
+      const message = (error as FirebaseError).message;
+      addSnackbar({message, type: "error"});
+    } finally {
+      setLoading(false);
+    }
   }
 
   return {
