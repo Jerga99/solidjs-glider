@@ -6,7 +6,7 @@ import { GliderInputEvent } from "../../types/Form";
 import { Glide } from "../../types/Glide";
 
 type Props = {
-  onGlideAdded: (g: Glide) => void
+  onGlideAdded: (g: Glide | undefined) => void
 }
 
 const Messenger: Component<Props> = (props) => {
@@ -57,7 +57,7 @@ const Messenger: Component<Props> = (props) => {
             <button
               onClick={async () => {
                 const glide = await handleSubmit();
-                props.onGlideAdded(glide!);
+                props.onGlideAdded(glide);
               }}
               type="button"
               class="
