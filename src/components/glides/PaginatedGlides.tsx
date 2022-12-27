@@ -1,5 +1,6 @@
 import { Accessor, Component, For, Show } from "solid-js";
 import { Glide } from "../../types/Glide";
+import { CenteredDataLoader } from "../utils/DataLoader";
 import GlidePost from "./GlidePost";
 
 type Props = {
@@ -23,9 +24,7 @@ const PaginatedGlides: Component<Props> = (props) => {
         }
       </For>
       <Show when={props.loading}>
-        <div class="flex-it justify-center items-center">
-          Loading...
-        </div>
+        <CenteredDataLoader />
       </Show>
     </>
   )
