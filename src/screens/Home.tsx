@@ -5,15 +5,19 @@ import Messenger from "../components/utils/Messenger";
 import useGlides from "../hooks/useGlides";
 
 const HomeScreen: Component = () => {
-  const {store} = useGlides();
+  const {store, page} = useGlides();
 
   return (
     <MainLayout>
       <Messenger />
       <div class="h-px bg-gray-700 my-1" />
-      <For each={store.glides}>
-        { (glide) =>
-          <GlidePost glide={glide} />
+      <For each={Array.from({length: page()})}>
+        {(_, i) =>
+          <For each={store.pages[i() + 1]?.glides}>
+            { (glide) =>
+              <GlidePost glide={glide} />
+            }
+          </For>
         }
       </For>
     </MainLayout>
