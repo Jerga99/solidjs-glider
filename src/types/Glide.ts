@@ -5,7 +5,7 @@ export interface Glide {
   id: string;
   uid: string;
   content: string;
-  user: User | DocumentReference;
+  user: Partial<User> | DocumentReference;
   likesCount: number;
   subglidesCount: number;
   date: Timestamp;
