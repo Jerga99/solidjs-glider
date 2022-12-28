@@ -14,15 +14,15 @@ export const links = [{
   href: "/profile",
   icon: () => <CgProfile size={SIZE} />
 }, {
-  name: "More",
-  href: "/more",
-  icon: () => <CgMoreO size={SIZE} />
-}, {
-  name: "Login", // Notification
-  href: "/auth/login", // /notification
+  name: "Notifications",
+  href: "/",
   icon: () => <IoNotificationsCircleOutline size={SIZE} />
 }, {
-  name: "Register", // Discover
-  href: "/auth/register", // /discover
+  name: "More",
+  href: "/",
+  icon: () => <CgMoreO size={SIZE} />
+}, {
+  name: "Discover",
+  href: "/", 
   icon: () => <RiMapCompassDiscoverLine size={SIZE} />
 }]
