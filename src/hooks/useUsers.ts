@@ -1,6 +1,6 @@
 import { FirebaseError } from "firebase/app";
 import { createSignal, onMount } from "solid-js";
-import { getUsers } from "../api/user";
+import * as api from "../api/user";
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 import { User } from "../types/User";
@@ -18,7 +18,7 @@ const useUsers = () => {
 
   const loadUsers = async () => {
     try {
-      const users = await getUsers(user!);
+      const users = await api.getUsers(user!);
       setUsers(users);
     } catch(error) {
       const message = (error as FirebaseError).message;
@@ -28,9 +28,15 @@ const useUsers = () => {
     }
   }
 
+  const followUser = async (followingUser: User) => {
+    await api.followUser(user!.uid, followingUser.uid);
+    alert("Following Done!");
+  }
+
   return {
     loading,
-    users
+    users,
+    followUser
   }
 }
 
