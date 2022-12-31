@@ -11,7 +11,9 @@ type Props = {
 
 const Messenger: Component<Props> = (props) => {
   const {user} = useAuthState()!;
-  const {handleInput, handleSubmit, form} = useMessenger();
+  const {handleInput, handleSubmit, form, loading} = useMessenger();
+
+  const sendDisabled = () => loading() || form.content === "";
 
   const autosize = (e: GliderInputEvent) => {
     const el = e.currentTarget;
@@ -55,6 +57,7 @@ const Messenger: Component<Props> = (props) => {
           </div>
           <div class="flex-it w-32 mt-3 cursor-pointer">
             <button
+              disabled={sendDisabled()}
               onClick={async () => {
                 const glide = await handleSubmit();
                 props.onGlideAdded(glide);
