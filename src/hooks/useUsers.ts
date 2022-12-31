@@ -34,11 +34,17 @@ const useUsers = () => {
     setLoadingFollow(true);
 
     try {
-      const followingRef = await api.followUser(user!.uid, followingUser.uid);
-
       if (!user) {
         throw new Error("You are not authenticated!");
       }
+
+      if (user.following
+        .filter(following => following.id === followingUser.uid).length > 0
+      ) {
+        throw new Error("You already follow this user");
+      }
+
+      const followingRef = await api.followUser(user!.uid, followingUser.uid);
 
       updateUser({
         following: [followingRef, ...user.following],
