@@ -50,6 +50,18 @@ const useUsers = () => {
         following: [followingRef, ...user.following],
         followingCount: user.followingCount + 1
       });
+
+      setUsers((_users) => {
+        const copy = [..._users];
+        const index = copy.findIndex((user) => user.uid === followingUser.uid);
+
+        if (index > -1) {
+          copy.splice(index, 1);
+        }
+
+        return copy;
+      })
+
       addSnackbar({message: `You started following ${followingUser.nickName}`, type: "success"});
     } catch(error) {
       const message = (error as FirebaseError).message;
