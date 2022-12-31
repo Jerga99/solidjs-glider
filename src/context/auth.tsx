@@ -57,7 +57,10 @@ const AuthProvider: ParentComponent = (props) => {
   }
 
   const updateUser = (user: Partial<User>) => {
-    alert("Update Called!");
+    Object.keys(user).forEach(userKey => {
+      const key = userKey as keyof User; 
+      setStore("user", key, user[key]!);
+    })
   }
 
 
