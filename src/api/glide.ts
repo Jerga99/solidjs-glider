@@ -50,7 +50,7 @@ const subscribeToGlides = (loggedInUser: User) => {
     ...contraints
   )
 
-  onSnapshot(q, (querySnapshot) => {
+  return onSnapshot(q, (querySnapshot) => {
     console.log(querySnapshot.docs);
   });
 }
