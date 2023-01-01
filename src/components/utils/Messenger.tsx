@@ -4,6 +4,7 @@ import { useAuthState } from "../../context/auth";
 import useMessenger from "../../hooks/useMessenger";
 import { GliderInputEvent } from "../../types/Form";
 import { Glide } from "../../types/Glide";
+import Button from "./Button";
 
 type Props = {
   onGlideAdded: (g: Glide | undefined) => void
@@ -56,21 +57,15 @@ const Messenger: Component<Props> = (props) => {
             </div>
           </div>
           <div class="flex-it w-32 mt-3 cursor-pointer">
-            <button
+            <Button
               disabled={sendDisabled()}
               onClick={async () => {
                 const glide = await handleSubmit();
                 props.onGlideAdded(glide);
               }}
-              type="button"
-              class="
-                disabled:cursor-not-allowed disabled:bg-gray-400
-                bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-full flex-it transition duration-200"
             >
-              <div class="flex-it flex-row text-sm font-bold text-white items-start justify-center">
-                <span>Glide It</span>
-              </div>
-            </button>
+              <span>Glide It</span>
+            </Button>
           </div>
         </div>
       </div>
