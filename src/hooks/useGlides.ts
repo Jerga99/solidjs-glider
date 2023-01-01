@@ -2,7 +2,7 @@ import { FirebaseError } from "firebase/app";
 import { QueryDocumentSnapshot } from "firebase/firestore";
 import { createSignal, onMount } from "solid-js";
 import { createStore, produce } from "solid-js/store";
-import { getGlides } from "../api/glide";
+import * as api from "../api/glide";
 import { useAuthState } from "../context/auth";
 import { Glide } from "../types/Glide";
 
@@ -34,7 +34,7 @@ const useGlides = () => {
     
     setStore("loading", true);
     try {
-      const {glides, lastGlide} = await getGlides(user!, store.lastGlide);
+      const {glides, lastGlide} = await api.getGlides(user!, store.lastGlide);
       
       if (glides.length > 0) {
         setStore(produce(store => {
@@ -51,6 +51,14 @@ const useGlides = () => {
     } finally {
       setStore("loading", false);
     }
+  }
+
+  const subscribeToGlides = () => {
+    if (user?.following.length == 0) {
+      return;
+    }
+
+    api.subscribeToGlides(user!);
   }
 
   const addGlide = (glide: Glide | undefined) => {
@@ -71,7 +79,8 @@ const useGlides = () => {
     page,
     loadGlides,
     addGlide,
-    store
+    store,
+    subscribeToGlides
   }
 }
 

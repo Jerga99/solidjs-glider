@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, DocumentReference, getDoc, getDocs, limit, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, startAfter, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentReference, getDoc, getDocs, limit, onSnapshot, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, startAfter, Timestamp, where } from "firebase/firestore";
 import { db } from "../db";
 import { Glide } from "../types/Glide";
 import { User } from "../types/User";
@@ -37,6 +37,24 @@ const getGlides = async (loggedInUser: User, lastGlide: QueryDocumentSnapshot | 
   return {glides, lastGlide: _lastGlide};
 }
 
+const subscribeToGlides = (loggedInUser: User) => {
+  const _collection = collection(db, "glides");
+
+  const contraints = [
+    where("date", ">", Timestamp.now()),
+    where("user", "in", loggedInUser.following)
+  ];
+
+  const q = query(
+    _collection,
+    ...contraints
+  )
+
+  onSnapshot(q, (querySnapshot) => {
+    console.log(querySnapshot.docs);
+  });
+}
+
 const createGlide = async (form: {
   content: string;
   uid: string;
@@ -61,5 +79,6 @@ const createGlide = async (form: {
 
 export {
   createGlide,
-  getGlides
+  getGlides,
+  subscribeToGlides
 }
