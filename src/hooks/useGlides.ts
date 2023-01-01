@@ -12,9 +12,10 @@ type State = {
   };
   loading: boolean;
   lastGlide: QueryDocumentSnapshot | null;
+  freshGlides: Glide[];
 }
 
-const createInitState = () => ({pages: {}, loading: false, lastGlide: null});
+const createInitState = () => ({pages: {}, loading: false, lastGlide: null, freshGlides: []});
 
 const useGlides = () => {
   const {user} = useAuthState()!;
@@ -60,7 +61,10 @@ const useGlides = () => {
       return;
     }
 
-    unSubscribe = api.subscribeToGlides(user!);
+    unSubscribe = api.subscribeToGlides(user!, (freshGlides: Glide[]) => {
+      setStore("freshGlides", freshGlides);
+      console.log(store.freshGlides);
+    });
   }
 
   const unsubscribeFromGlides = () => {
