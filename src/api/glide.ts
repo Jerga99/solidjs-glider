@@ -50,8 +50,16 @@ const subscribeToGlides = (loggedInUser: User) => {
     ...contraints
   )
 
-  return onSnapshot(q, (querySnapshot) => {
-    console.log(querySnapshot.docs);
+  return onSnapshot(q, async (querySnapshot) => {
+    
+    const glides = await Promise.all(querySnapshot.docs.reverse().map(async doc => {
+      const glide = doc.data() as Glide;
+      const userSnap = await getDoc(glide.user as DocumentReference);
+      glide.user = userSnap.data() as User;
+      return {...glide, id: doc.id};
+    }));
+
+    console.log(glides);
   });
 }
 
