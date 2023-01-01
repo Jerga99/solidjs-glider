@@ -12,7 +12,8 @@ const HomeScreen: Component = () => {
     addGlide, 
     page, 
     loadGlides, 
-    subscribeToGlides, unsubscribeFromGlides
+    subscribeToGlides, unsubscribeFromGlides,
+    displayFreshGlides
   } = useGlides();
 
   onMount(() => {
@@ -31,7 +32,7 @@ const HomeScreen: Component = () => {
         <Portal>
           <div class="fixed top-2 z-100 left-2/4 -translate-x-1/2">
             <Button 
-              onClick={() => alert("HI there!")}>
+              onClick={displayFreshGlides}>
               <span>Read New Glides</span>
             </Button>
           </div>

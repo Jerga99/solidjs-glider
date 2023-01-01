@@ -73,6 +73,11 @@ const useGlides = () => {
     }
   }
 
+  const resubscribe = () => {
+    unsubscribeFromGlides();
+    subscribeToGlides();
+  }
+
   const addGlide = (glide: Glide | undefined) => {
     if (!glide) return;
 
@@ -87,13 +92,24 @@ const useGlides = () => {
     }))
   }
 
+  const displayFreshGlides = () => {
+    store.freshGlides.forEach(freshGlide => {
+      addGlide(freshGlide);
+    })
+
+    setStore("freshGlides", []);
+    resubscribe();
+    window.scrollTo({top: 0, behavior: "smooth"})
+  }
+
   return {
     page,
     loadGlides,
     addGlide,
     store,
     subscribeToGlides,
-    unsubscribeFromGlides
+    unsubscribeFromGlides,
+    displayFreshGlides
   }
 }
 
