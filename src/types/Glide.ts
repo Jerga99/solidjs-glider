@@ -11,3 +11,7 @@ export interface Glide {
   subglidesCount: number;
   date: Timestamp;
 }
+
+export type UserGlide = {
+  lookup: DocumentReference;
+}
