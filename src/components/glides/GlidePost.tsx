@@ -1,17 +1,19 @@
+import { useNavigate } from "@solidjs/router";
 import { AiOutlineMessage } from "solid-icons/ai";
 import { FaRegularHeart } from "solid-icons/fa";
 import { FiTrash } from "solid-icons/fi";
 import { Component } from "solid-js";
 import { Glide } from "../../types/Glide";
+import { User } from "../../types/User";
 
 type Props = {
   glide: Glide
 }
 
 const GlidePost: Component<Props> = (props) => {
-
+  const navigate = useNavigate();
   const glide = () => props.glide;
-  const user = () => glide().user;
+  const user = () => glide().user as User;
 
   return (
     <div class="flex-it p-4 border-b-1 border-solid border-gray-700">
@@ -24,7 +26,11 @@ const GlidePost: Component<Props> = (props) => {
             ></img>
           </div>
         </div>
-        <article class="flex-it flex-grow flex-shrink cursor-pointer">
+        <article 
+          onClick={() => {
+            navigate(`/${glide().uid}/glide/${glide().id}`)
+          }}
+          class="flex-it flex-grow flex-shrink cursor-pointer">
           <div class="flex-it justify-center flex-grow mb-1">
             <div class="flex-it justify-between flex-row w-full">
               <div>
