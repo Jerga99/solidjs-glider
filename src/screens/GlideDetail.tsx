@@ -18,7 +18,7 @@ const GlideDetail = () => {
   createEffect(() => {
     const glide = data();
     if (!data.loading && !!glide && !!glide.lookup) {
-      loadGlides(glide.lookup)
+      loadGlides(glide.lookup);
     }
   })
 

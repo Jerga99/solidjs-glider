@@ -56,9 +56,31 @@ const getGlides = async (loggedInUser: User, lastGlide: QueryDocumentSnapshot | 
 }
 
 const getSubglides = async (glideLookup: string) => {
-  alert("get subglides: " + glideLookup);
+  const ref = doc(db, glideLookup);
+  const _collection = collection(ref, "glides");
+
+  const constraints = [
+    orderBy("date", "desc"),
+    limit(10)
+  ]
+
+  const q = query(
+    _collection,
+    ...constraints
+  )
+
+  const qSnapshot = await getDocs(q);
+  
+  const glides = await Promise.all(qSnapshot.docs.map(async doc => {
+    const glide = doc.data() as Glide;
+    const userSnap = await getDoc(glide.user as DocumentReference);
+    glide.user = userSnap.data() as User;
+
+    return {...glide, id: doc.id, lookup: doc.ref.path};
+  }))
+  
   return {
-    glides: [],
+    glides,
     lastGlide: null
   }
 }
