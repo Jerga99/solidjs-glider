@@ -8,7 +8,7 @@ import { GliderInputEvent, MessengerForm } from "../types/Form";
 
 
 
-const useMessenger = () => {
+const useMessenger = (answerTo?: string) => {
   const {isAuthenticated, user} = useAuthState()!;
   const {addSnackbar} = useUIDispatch();
   const [loading, setLoading] = createSignal(false);
@@ -35,7 +35,7 @@ const useMessenger = () => {
     }
 
     try {
-      const newGlide = await createGlide(glide);
+      const newGlide = await createGlide(glide, answerTo);
       newGlide.user = {
         nickName: user!.nickName,
         avatar: user!.avatar

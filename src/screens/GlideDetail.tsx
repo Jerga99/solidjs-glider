@@ -41,6 +41,7 @@ const GlideDetail = () => {
             Answering to {user().nickName}
           </div>
           <Messenger 
+            answerTo={data()?.lookup}
             showAvatar={false}
             onGlideAdded={() => {}} 
           />
