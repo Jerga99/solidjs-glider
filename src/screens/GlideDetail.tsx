@@ -6,11 +6,15 @@ import GlidePost from "../components/glides/GlidePost";
 import MainLayout from "../components/layouts/Main";
 import { CenteredDataLoader } from "../components/utils/DataLoader";
 import Messenger from "../components/utils/Messenger";
+import useSubglides from "../hooks/useSubglides";
 import { User } from "../types/User";
 
 const GlideDetail = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
+  const {store} = useSubglides();
+
+  console.log(store);
 
   const user = () => data()?.user as User;
 
