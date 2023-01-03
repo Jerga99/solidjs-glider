@@ -12,11 +12,12 @@ import { User } from "../types/User";
 const GlideDetail = () => {
   const params = useParams();
   const [data] = createResource(() => getGlideById(params.id, params.uid));
-  const {store} = useSubglides();
-
-  console.log(store);
-
+  const {store, loadGlides} = useSubglides();
   const user = () => data()?.user as User;
+
+  onMount(() => {
+    loadGlides();
+  })
 
   return (
     <MainLayout pageTitle={
