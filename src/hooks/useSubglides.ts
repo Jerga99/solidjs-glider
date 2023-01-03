@@ -15,7 +15,7 @@ const useSubglides = () => {
   const [store, setStore] = createStore<UseGlideState>(defaultState());
   const [page, setPage] = createSignal(1);
   
-  const loadGlides = async () => {
+  const loadGlides = async (glideLookup: string) => {
     const _page = page();
 
     if (_page > 1 && !store.lastGlide) {
@@ -24,7 +24,7 @@ const useSubglides = () => {
     
     setStore("loading", true);
     try {
-      const {glides, lastGlide} = await getSubglides();
+      const {glides, lastGlide} = await getSubglides(glideLookup);
       
       if (glides.length > 0) {
         setStore(produce(store => {

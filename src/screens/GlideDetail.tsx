@@ -1,6 +1,6 @@
 import { useParams } from "@solidjs/router";
 import { FaSolidArrowLeft } from "solid-icons/fa";
-import { createResource, onMount, Show } from "solid-js";
+import { createEffect, createResource, onMount, Show } from "solid-js";
 import { getGlideById } from "../api/glide";
 import GlidePost from "../components/glides/GlidePost";
 import MainLayout from "../components/layouts/Main";
@@ -15,8 +15,11 @@ const GlideDetail = () => {
   const {store, loadGlides} = useSubglides();
   const user = () => data()?.user as User;
 
-  onMount(() => {
-    loadGlides();
+  createEffect(() => {
+    const glide = data();
+    if (!data.loading && !!glide && !!glide.lookup) {
+      loadGlides(glide.lookup)
+    }
   })
 
   return (

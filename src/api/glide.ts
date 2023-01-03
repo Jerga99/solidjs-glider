@@ -55,8 +55,8 @@ const getGlides = async (loggedInUser: User, lastGlide: QueryDocumentSnapshot | 
   return {glides, lastGlide: _lastGlide};
 }
 
-const getSubglides = async () => {
-  alert("get subglides!");
+const getSubglides = async (glideLookup: string) => {
+  alert("get subglides: " + glideLookup);
   return {
     glides: [],
     lastGlide: null
