@@ -1,5 +1,5 @@
 import { FaRegularImage } from "solid-icons/fa";
-import { Component } from "solid-js";
+import { Component, mergeProps, Show } from "solid-js";
 import { useAuthState } from "../../context/auth";
 import useMessenger from "../../hooks/useMessenger";
 import { GliderInputEvent } from "../../types/Form";
@@ -7,10 +7,12 @@ import { Glide } from "../../types/Glide";
 import Button from "./Button";
 
 type Props = {
-  onGlideAdded: (g: Glide | undefined) => void
+  onGlideAdded: (g: Glide | undefined) => void;
+  showAvatar?: boolean;
 }
 
-const Messenger: Component<Props> = (props) => {
+const Messenger: Component<Props> = (initialprops) => {
+  const props = mergeProps({showAvatar: true}, initialprops);
   const {user} = useAuthState()!;
   const {handleInput, handleSubmit, form, loading} = useMessenger();
 
@@ -26,14 +28,16 @@ const Messenger: Component<Props> = (props) => {
   
   return (
     <div class="flex-it py-1 px-4 flex-row">
-      <div class="flex-it mr-4">
-        <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
-          <img
-            class="rounded-full"
-            src={user?.avatar}
-          ></img>
+      <Show when={props.showAvatar}>
+        <div class="flex-it mr-4">
+          <div class="w-12 h-12 overflow-visible cursor-pointer transition duration-200 hover:opacity-80">
+            <img
+              class="rounded-full"
+              src={user?.avatar}
+            ></img>
+          </div>
         </div>
-      </div>
+      </Show>
       <div class="flex-it flex-grow">
         <div class="flex-it">
           <textarea
