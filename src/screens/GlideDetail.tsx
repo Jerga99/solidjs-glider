@@ -8,11 +8,12 @@ import MainLayout from "../components/layouts/Main";
 import { CenteredDataLoader } from "../components/utils/DataLoader";
 import Messenger from "../components/utils/Messenger";
 import useSubglides from "../hooks/useSubglides";
+import { Glide } from "../types/Glide";
 import { User } from "../types/User";
 
 const GlideDetail = () => {
   const params = useParams();
-  const [data] = createResource(() => getGlideById(params.id, params.uid));
+  const [data, {mutate}] = createResource(() => getGlideById(params.id, params.uid));
   const {store, page, loadGlides} = useSubglides();
   const user = () => data()?.user as User;
 
@@ -22,6 +23,15 @@ const GlideDetail = () => {
       loadGlides(glide.lookup);
     }
   })
+
+  const onGlideAdded = (newGlide?: Glide) => {
+    const glide = data()!;
+
+    mutate({
+      ...glide,
+      subglidesCount: glide.subglidesCount + 1
+    });
+  }
 
   return (
     <MainLayout pageTitle={
@@ -44,7 +54,7 @@ const GlideDetail = () => {
           <Messenger 
             answerTo={data()?.lookup}
             showAvatar={false}
-            onGlideAdded={() => {}} 
+            onGlideAdded={onGlideAdded} 
           />
         </div>
         <PaginatedGlides 
