@@ -45,6 +45,13 @@ const PaginatedGlides: Component<Props> = (props) => {
       <Show when={props.loading}>
         <CenteredDataLoader />
       </Show>
+      <Show when={!props.loading && props.pages[1]?.glides?.length === 0}>
+        <div class="flex-it">
+          <div class="bg-yellow-500 mt-6 p-2 rounded-lg mx-4">
+            No new glides! Create a new one.
+          </div>
+        </div>
+      </Show>
       <div ref={lastItemRef!}></div>
       <div class="h-96"></div>
     </>
