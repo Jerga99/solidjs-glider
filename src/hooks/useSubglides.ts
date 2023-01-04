@@ -2,7 +2,7 @@ import { FirebaseError } from "firebase/app";
 import { createSignal } from "solid-js";
 import { createStore, produce } from "solid-js/store";
 import { getSubglides } from "../api/glide";
-import { UseGlideState } from "../types/Glide";
+import { Glide, UseGlideState } from "../types/Glide";
 
 const defaultState = () => ({
   pages: {},
@@ -43,10 +43,25 @@ const useSubglides = () => {
     }
   }
 
+  const addGlide = (glide: Glide | undefined) => {
+    if (!glide) return;
+
+    const page = 1;
+
+    setStore(produce(store => {
+      if (!store.pages[page]) {
+        store.pages[page] = {glides: []};
+      }
+
+      store.pages[page].glides.unshift({...glide});
+    }))
+  }
+
   return {
     store,
     loadGlides,
-    page
+    page,
+    addGlide
   }
 }
 

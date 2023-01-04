@@ -14,7 +14,7 @@ import { User } from "../types/User";
 const GlideDetail = () => {
   const params = useParams();
   const [data, {mutate}] = createResource(() => getGlideById(params.id, params.uid));
-  const {store, page, loadGlides} = useSubglides();
+  const {store, page, loadGlides, addGlide} = useSubglides();
   const user = () => data()?.user as User;
 
   createEffect(() => {
@@ -31,6 +31,8 @@ const GlideDetail = () => {
       ...glide,
       subglidesCount: glide.subglidesCount + 1
     });
+
+    addGlide(newGlide);
   }
 
   return (
