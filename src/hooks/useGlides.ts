@@ -58,7 +58,6 @@ const useGlides = () => {
 
     unSubscribe = api.subscribeToGlides(user!, (freshGlides: Glide[]) => {
       setStore("freshGlides", freshGlides);
-      console.log(store.freshGlides);
     });
   }
 

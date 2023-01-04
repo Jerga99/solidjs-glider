@@ -13,16 +13,19 @@ import { User } from "../types/User";
 
 const GlideDetail = () => {
   const params = useParams();
-  const [data, {mutate}] = createResource(() => getGlideById(params.id, params.uid));
+
+  const onGlideLoaded = (glide: Glide) => {
+    loadGlides(glide.lookup!);
+  }
+
+  const [data, {mutate}] = createResource(async () => {
+    const glide = await getGlideById(params.id, params.uid);
+    onGlideLoaded(glide);
+    return glide;
+  });
+
   const {store, page, loadGlides, addGlide} = useSubglides();
   const user = () => data()?.user as User;
-
-  createEffect(() => {
-    const glide = data();
-    if (!data.loading && !!glide && !!glide.lookup) {
-      loadGlides(glide.lookup);
-    }
-  })
 
   const onGlideAdded = (newGlide?: Glide) => {
     const glide = data()!;
