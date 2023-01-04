@@ -17,7 +17,7 @@ const useSubglides = () => {
   
   const loadGlides = async (glideLookup: string) => {
     const _page = page();
-
+    
     if (_page > 1 && !store.lastGlide) {
       return;
     }

@@ -18,7 +18,7 @@ const GlideDetail = () => {
     loadGlides(glide.lookup!);
   }
 
-  const [data, {mutate}] = createResource(async () => {
+  const [data, {mutate, refetch}] = createResource(async () => {
     const glide = await getGlideById(params.id, params.uid);
     onGlideLoaded(glide);
     return glide;
@@ -26,6 +26,12 @@ const GlideDetail = () => {
 
   const {store, page, loadGlides, addGlide} = useSubglides();
   const user = () => data()?.user as User;
+
+  createEffect(() => {
+    if (!data.loading && data()?.id !== params.id) {
+      refetch();
+    }
+  })
 
   const onGlideAdded = (newGlide?: Glide) => {
     const glide = data()!;
