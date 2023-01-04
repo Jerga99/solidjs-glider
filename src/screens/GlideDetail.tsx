@@ -15,6 +15,7 @@ const GlideDetail = () => {
   const params = useParams();
 
   const onGlideLoaded = (glide: Glide) => {
+    resetPagination();
     loadGlides(glide.lookup!);
   }
 
@@ -24,7 +25,7 @@ const GlideDetail = () => {
     return glide;
   });
 
-  const {store, page, loadGlides, addGlide} = useSubglides();
+  const {store, page, loadGlides, addGlide, resetPagination} = useSubglides();
   const user = () => data()?.user as User;
 
   createEffect(() => {

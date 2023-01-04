@@ -57,11 +57,26 @@ const useSubglides = () => {
     }))
   }
 
+  const resetPagination = () => {
+    setStore(produce((store) => {
+      for (let i = 1; i <= page(); i++) {
+        store.pages[i] = {
+          glides: []
+        };
+      }
+
+      store.lastGlide = null;
+    }));
+
+    setPage(1);
+  }
+
   return {
     store,
     loadGlides,
     page,
-    addGlide
+    addGlide,
+    resetPagination
   }
 }
 
