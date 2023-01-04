@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, DocumentReference, getDoc, getDocs, limit, onSnapshot, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, doc, DocumentReference, getDoc, getDocs, increment, limit, onSnapshot, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "../db";
 import { Glide, UserGlide } from "../types/Glide";
 import { User } from "../types/User";
@@ -137,6 +137,13 @@ const createGlide = async (form: {
     likesCount: 0,
     subglidesCount: 0,
     date: Timestamp.now()
+  }
+
+  if (!!answerTo) {
+    const ref = doc(db, answerTo);
+    await updateDoc(ref, {
+      subglidesCount: increment(1)
+    })
   }
 
   const added = await addDoc(glideCollection, glideToStore);
