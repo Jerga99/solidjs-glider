@@ -45,7 +45,8 @@ const useSubglides = () => {
 
   return {
     store,
-    loadGlides
+    loadGlides,
+    page
   }
 }
 
