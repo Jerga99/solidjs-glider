@@ -5,6 +5,7 @@ import { FiTrash } from "solid-icons/fi";
 import { Component } from "solid-js";
 import { Glide } from "../../types/Glide";
 import { User } from "../../types/User";
+import moment from "moment";
 
 type Props = {
   glide: Glide
@@ -36,7 +37,7 @@ const GlidePost: Component<Props> = (props) => {
               <div>
                 <span class="font-bold">{user().nickName}</span>
                 <span class="mx-2">&#8226;</span>
-                <span class="text-gray-400">2h</span>
+                <span class="text-gray-400">{moment(glide().date.toDate().toISOString()).fromNow()}</span>
               </div>
               <div class="text-gray-400 cursor-pointer transition hover:text-red-400">
                 <FiTrash size={16} />
