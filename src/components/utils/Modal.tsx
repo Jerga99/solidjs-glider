@@ -1,4 +1,5 @@
 import {
+  Component,
   createSignal,
   ParentComponent,
   Show,
@@ -6,12 +7,16 @@ import {
 import { Portal } from "solid-js/web";
 import Button from "./Button";
 
-const Modal: ParentComponent = (props) => {
+type Props = {
+  openComponent: Component
+}
+
+const Modal: ParentComponent<Props> = (props) => {
   const [isOpen, setOpen] = createSignal(false);
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Open</Button>
+      <props.openComponent />
       <Show when={isOpen()}>
         <Portal>
           <div class="openModal">
