@@ -54,6 +54,7 @@ const useMessenger = (answerTo?: string) => {
 
       addSnackbar({message: "Glide Added!", type: "success"});
       setForm({content: ""});
+      setImage(defaultImage());
       return newGlide;
     } catch (error) {
       const message = (error as FirebaseError).message;
