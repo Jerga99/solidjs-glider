@@ -1,5 +1,6 @@
 import {
   Component,
+  createEffect,
   createSignal,
   Setter,
   Show,
@@ -19,6 +20,18 @@ const Modal: Component<Props> = (props) => {
   const [isOpen, setOpen] = createSignal(false);
 
   let modalRef: HTMLDivElement;
+
+  createEffect(() => 
+    isOpen() ? disableScroll() :enableScroll()
+  )
+
+  const enableScroll = () => {
+    document.body.classList.remove("no-scroll");
+  }
+
+  const disableScroll = () => {
+    document.body.classList.add("no-scroll");
+  }
 
   return (
     <>
