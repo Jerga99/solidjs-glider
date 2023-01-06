@@ -35,7 +35,7 @@ const useMessenger = (answerTo?: string) => {
 
     setLoading(true);
 
-    const glide = {
+    const glideForm = {
       ...form,
       uid: user!.uid
     }
@@ -43,12 +43,10 @@ const useMessenger = (answerTo?: string) => {
     try {
       if (image().buffer.byteLength > 0) {
         const downloadUrl = await uploadImage(image());
-        console.log(downloadUrl);
+        glideForm.mediaUrl = downloadUrl;
       }
 
-      return;
-
-      const newGlide = await createGlide(glide, answerTo);
+      const newGlide = await createGlide(glideForm, answerTo);
       newGlide.user = {
         nickName: user!.nickName,
         avatar: user!.avatar

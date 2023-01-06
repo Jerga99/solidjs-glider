@@ -4,6 +4,7 @@ import { User } from "./User";
 export interface Glide {
   id: string;
   lookup?: string;
+  mediaUrl?: string;
   uid: string;
   content: string;
   user: Partial<User> | DocumentReference;

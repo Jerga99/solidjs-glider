@@ -21,6 +21,7 @@ export type FormErrors = {[key: string]: string[]}
 
 export type MessengerForm = {
   content: string;
+  mediaUrl?: string;
 } & Form
 
 export type AuthForm = {
