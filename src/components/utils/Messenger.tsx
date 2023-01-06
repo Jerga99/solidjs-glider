@@ -34,11 +34,14 @@ const Messenger: Component<Props> = (initialprops) => {
     reader.readAsArrayBuffer(file);
 
     reader.onload = () => {
-      debugger
       const buffer = reader.result as ArrayBuffer;
       const buffer8Uint = new Uint8Array(buffer);
 
-      console.log(buffer8Uint);
+      const blob = new Blob([buffer8Uint], {type: file.type});
+      const urlCreator = window.URL || window.webkitURL;
+
+      const imageUrl = urlCreator.createObjectURL(blob);
+      console.log(imageUrl);
     }
   }
   
