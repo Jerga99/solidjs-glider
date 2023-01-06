@@ -1,11 +1,17 @@
 import { addDoc, collection, doc, DocumentReference, getDoc, getDocs, increment, limit, onSnapshot, orderBy, query, QueryConstraint, QueryDocumentSnapshot, QuerySnapshot, setDoc, startAfter, Timestamp, updateDoc, where } from "firebase/firestore";
 import { db } from "../db";
+import { UploadImage } from "../types/Form";
 import { Glide, UserGlide } from "../types/Glide";
 import { User } from "../types/User";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
+const uploadImage = async (image: UploadImage) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, image.name);
 
-const uploadImage = () => {
-  alert("Image is getting uploaded!");
+  const uploadResult = await uploadBytes(storageRef, image.buffer);
+  const downloadUrl = await getDownloadURL(uploadResult.ref);
+  return downloadUrl;
 }
 
 const getGlideById = async (id: string, uid: string) => {
