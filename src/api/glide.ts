@@ -3,6 +3,11 @@ import { db } from "../db";
 import { Glide, UserGlide } from "../types/Glide";
 import { User } from "../types/User";
 
+
+const uploadImage = () => {
+  alert("Image is getting uploaded!");
+}
+
 const getGlideById = async (id: string, uid: string) => {
   const userDocRef = doc(db, "users", uid);
   const userGlideRef = doc(userDocRef, "glides", id);
@@ -165,5 +170,6 @@ export {
   getGlides,
   subscribeToGlides,
   getGlideById,
-  getSubglides
+  getSubglides,
+  uploadImage
 }

@@ -1,7 +1,7 @@
 import { FirebaseError } from "firebase/app";
 import { createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
-import { createGlide } from "../api/glide";
+import { createGlide, uploadImage } from "../api/glide";
 import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 import { GliderInputEvent, MessengerForm } from "../types/Form";
@@ -47,6 +47,10 @@ const useMessenger = (answerTo?: string) => {
     }
 
     try {
+      if (image().buffer.byteLength > 0) {
+        uploadImage();
+      }
+
       const newGlide = await createGlide(glide, answerTo);
       newGlide.user = {
         nickName: user!.nickName,
