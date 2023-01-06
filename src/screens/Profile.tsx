@@ -10,7 +10,9 @@ const ProfileScreen: Component = () => {
   const authState = useAuthState()!;
 
   return (
-    <MainLayout pageTitle="Profile">
+    <MainLayout 
+      onGlideAdded={() => {}}
+      pageTitle="Profile">
       <div class="flex-it py-1">
         <div class="mt-6 pb-6 border-b border-gray-600">
           <div class="flex-it flex-row items-center px-4">

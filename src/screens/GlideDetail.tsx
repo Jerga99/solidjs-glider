@@ -46,7 +46,9 @@ const GlideDetail = () => {
   }
 
   return (
-    <MainLayout pageTitle={
+    <MainLayout 
+      onGlideAdded={onGlideAdded}
+      pageTitle={
       <div onClick={() => history.back()}>
         <div class="flex-it flex-row items-center text-xl cursor-pointer">
           <FaSolidArrowLeft />
