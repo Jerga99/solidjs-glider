@@ -29,7 +29,17 @@ const Messenger: Component<Props> = (initialprops) => {
 
   const handleImageSelection = (e: GliderFileEvent) => {
     const file = e.target.files![0];
-    console.log(file);
+    
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+
+    reader.onload = () => {
+      debugger
+      const buffer = reader.result as ArrayBuffer;
+      const buffer8Uint = new Uint8Array(buffer);
+
+      console.log(buffer8Uint);
+    }
   }
   
   return (
@@ -67,6 +77,7 @@ const Messenger: Component<Props> = (initialprops) => {
                 onChange={handleImageSelection}
                 type="file" 
                 name="myfile" 
+                accept="image/*"
               />
             </div>
           </div>
