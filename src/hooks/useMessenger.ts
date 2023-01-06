@@ -6,11 +6,23 @@ import { useAuthState } from "../context/auth";
 import { useUIDispatch } from "../context/ui";
 import { GliderInputEvent, MessengerForm } from "../types/Form";
 
+type UploadImage = {
+  buffer: ArrayBuffer;
+  name: string;
+  previewUrl: string;
+}
+
+const defaultImage = () => ({
+  buffer: new ArrayBuffer(0),
+  name: "",
+  previewUrl: ""
+})
 
 
 const useMessenger = (answerTo?: string) => {
   const {isAuthenticated, user} = useAuthState()!;
   const {addSnackbar} = useUIDispatch();
+  const [image, setImage] = createSignal<UploadImage>(defaultImage());
   const [loading, setLoading] = createSignal(false);
   const [form, setForm] = createStore<MessengerForm>({
     content: ""
@@ -56,7 +68,8 @@ const useMessenger = (answerTo?: string) => {
     handleInput,
     handleSubmit,
     form,
-    loading
+    loading,
+    image, setImage
   }
 }
 
