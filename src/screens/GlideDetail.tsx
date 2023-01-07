@@ -7,12 +7,14 @@ import PaginatedGlides from "../components/glides/PaginatedGlides";
 import MainLayout from "../components/layouts/Main";
 import { CenteredDataLoader } from "../components/utils/DataLoader";
 import Messenger from "../components/utils/Messenger";
+import { usePersistence } from "../context/persistence";
 import useSubglides from "../hooks/useSubglides";
 import { Glide } from "../types/Glide";
 import { User } from "../types/User";
 
 const GlideDetail = () => {
   const params = useParams();
+  const persistence = usePersistence()!;
 
   const onGlideLoaded = (glide: Glide) => {
     resetPagination();
@@ -27,6 +29,16 @@ const GlideDetail = () => {
 
   const {store, page, loadGlides, addGlide, resetPagination} = useSubglides();
   const user = () => data()?.user as User;
+
+  onMount(() => {
+    const value1 = persistence.getValue("number-value");
+    const value2 = persistence.getValue("string-value");
+    const value3 = persistence.getValue("object-value");
+
+    console.log(value1);
+    console.log(value2);
+    console.log(value3);
+  })
 
   createEffect(() => {
     if (!data.loading && data()?.id !== params.id) {

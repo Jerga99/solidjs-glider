@@ -5,6 +5,7 @@ import useGlides from "../hooks/useGlides";
 import PaginatedGlides from "../components/glides/PaginatedGlides";
 import { Portal } from "solid-js/web";
 import Button from "../components/utils/Button";
+import { usePersistence } from "../context/persistence";
 
 const HomeScreen: Component = () => {
   const {
@@ -16,7 +17,14 @@ const HomeScreen: Component = () => {
     displayFreshGlides
   } = useGlides();
 
+  const persistence = usePersistence()!;
+
   onMount(() => {
+    console.log("Storing values!");
+    persistence.setValue("number-value", 1000);
+    persistence.setValue("string-value", "Filip");
+    persistence.setValue("object-value", {name: "filip", age: 32});
+
     subscribeToGlides();
   })
 

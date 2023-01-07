@@ -1,18 +1,32 @@
-import { createContext, onMount, ParentComponent, useContext } from "solid-js"
+import { createContext, ParentComponent, useContext } from "solid-js"
+import { createStore, produce } from "solid-js/store";
 
+type PersistenceStore = {[key: string]: any};
 
-type PersistenceContextType = {};
+type PersistenceContextType = {
+  getValue: (key: string) => any;
+  setValue: (key: string, value: any) => void;
+};
 
 const PersistenceContext = createContext<PersistenceContextType>();
 
 const PersistenceProvider: ParentComponent = (props) => {
+  const [store, setStore] = createStore<PersistenceStore>();
 
-  onMount(() => {
-    console.log("persistence mounted!");
-  })
+  const setValue = (key: string, value: any) => {
+    setStore(produce(store => {
+      store[key] = value;
+    }));
+  }
 
+  const getValue = (key: string) => {
+    return store[key];
+  }
+  
   return (
-    <PersistenceContext.Provider value={{}}>
+    <PersistenceContext.Provider value={{
+      getValue, setValue
+    }}>
       {props.children}
     </PersistenceContext.Provider>
   )
