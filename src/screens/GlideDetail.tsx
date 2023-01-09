@@ -25,7 +25,7 @@ const GlideDetail = () => {
     
     const glide = await persistence.useRevalidate(
       `selectedGlide-${params.id}`, 
-      getGlideById(params.id, params.uid)
+      () => getGlideById(params.id, params.uid)
     )
 
     onGlideLoaded(glide);
