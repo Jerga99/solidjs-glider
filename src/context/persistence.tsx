@@ -25,11 +25,16 @@ const PersistenceProvider: ParentComponent = (props) => {
   }
 
   const hasValue = (key: string) => !!store[key];
+
+  const revalidate = <T,>(key: string, getData: () => Promise<T>) => {
+    alert("REVALIDATING");
+  }
   
   const useRevalidate = async <T,>(key: string, getData: () => Promise<T>) => {
 
     if (hasValue(key)) {
       const value = getValue(key);
+      revalidate(key, getData);
       return value;
     }
 
