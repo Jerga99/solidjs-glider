@@ -22,11 +22,12 @@ const GlideDetail = () => {
   }
 
   const [data, {mutate, refetch}] = createResource(async () => {
-    const selectedGlide = persistence.getValue<Glide>(`selectedGlide-${params.id}`);
+    
+    const glide = await persistence.useRevalidate(
+      `selectedGlide-${params.id}`, 
+      getGlideById(params.id, params.uid)
+    )
 
-    console.log(selectedGlide);
-
-    const glide = await getGlideById(params.id, params.uid);
     onGlideLoaded(glide);
     return glide;
   });

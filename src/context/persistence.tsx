@@ -6,6 +6,7 @@ type PersistenceStore = {[key: string]: any};
 type PersistenceContextType = {
   getValue: <T>(key: string) => T;
   setValue: (key: string, value: any) => void;
+  useRevalidate: <T>(key: string, promise: Promise<T>) => Promise<T>;
 };
 
 const PersistenceContext = createContext<PersistenceContextType>();
@@ -22,10 +23,15 @@ const PersistenceProvider: ParentComponent = (props) => {
   const getValue = (key: string) => {
     return store[key];
   }
+
+  const useRevalidate = async <T,>(key: string, promise: Promise<T>) => {
+    const result = await promise;
+    return result;
+  }
   
   return (
     <PersistenceContext.Provider value={{
-      getValue, setValue
+      getValue, setValue, useRevalidate
     }}>
       {props.children}
     </PersistenceContext.Provider>
