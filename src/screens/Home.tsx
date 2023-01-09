@@ -17,14 +17,7 @@ const HomeScreen: Component = () => {
     displayFreshGlides
   } = useGlides();
 
-  const persistence = usePersistence()!;
-
   onMount(() => {
-    console.log("Storing values!");
-    persistence.setValue("number-value", 1000);
-    persistence.setValue("string-value", "Filip");
-    persistence.setValue("object-value", {name: "filip", age: 32});
-
     subscribeToGlides();
   })
 
