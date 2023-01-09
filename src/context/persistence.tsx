@@ -1,12 +1,15 @@
 import { createContext, ParentComponent, useContext } from "solid-js"
 import { createStore, produce } from "solid-js/store";
+import _ from "lodash";
+
+type Map = {[key: string]: any}
 
 type PersistenceStore = {[key: string]: any};
 
 type PersistenceContextType = {
   getValue: <T>(key: string) => T;
   setValue: (key: string, value: any) => void;
-  useRevalidate: <T>(key: string, getData: () => Promise<T>) => Promise<T>;
+  useRevalidate: <T extends Map>(key: string, getData: () => Promise<T>) => Promise<T>;
 };
 
 const PersistenceContext = createContext<PersistenceContextType>();
@@ -20,21 +23,33 @@ const PersistenceProvider: ParentComponent = (props) => {
     }));
   }
 
-  const getValue = (key: string) => {
-    return store[key];
+  const getValue = <T, >(key: string) => {
+    return store[key] as T;
   }
 
   const hasValue = (key: string) => !!store[key];
 
-  const revalidate = <T,>(key: string, getData: () => Promise<T>) => {
-    alert("REVALIDATING");
+  const revalidate = async <T extends Map,>(
+    key: string, 
+    getData: () => Promise<T>,
+    originalData: T
+  ) => {
+    const latestData = await getData();
+
+    const isEqual = Object
+      .keys(originalData)
+      .every((property) => {
+        return _.isEqual(latestData[property], originalData[property]);
+      })
+    
+    alert(isEqual);
   }
   
-  const useRevalidate = async <T,>(key: string, getData: () => Promise<T>) => {
+  const useRevalidate = async <T extends Map,>(key: string, getData: () => Promise<T>) => {
 
     if (hasValue(key)) {
-      const value = getValue(key);
-      revalidate(key, getData);
+      const value = getValue<T>(key);
+      revalidate(key, getData, value);
       return value;
     }
 
