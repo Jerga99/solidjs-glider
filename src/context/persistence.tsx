@@ -4,7 +4,7 @@ import { createStore, produce } from "solid-js/store";
 type PersistenceStore = {[key: string]: any};
 
 type PersistenceContextType = {
-  getValue: (key: string) => any;
+  getValue: <T>(key: string) => T;
   setValue: (key: string, value: any) => void;
 };
 

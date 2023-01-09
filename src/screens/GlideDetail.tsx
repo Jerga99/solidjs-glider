@@ -31,9 +31,9 @@ const GlideDetail = () => {
   const user = () => data()?.user as User;
 
   onMount(() => {
-    const value1 = persistence.getValue("number-value");
-    const value2 = persistence.getValue("string-value");
-    const value3 = persistence.getValue("object-value");
+    const value1 = persistence.getValue<number>("number-value");
+    const value2 = persistence.getValue<string>("string-value");
+    const value3 = persistence.getValue<{name: string; age: number}>("object-value");
 
     console.log(value1);
     console.log(value2);
